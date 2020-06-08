@@ -13,9 +13,9 @@ class MovieSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'title', 'description', 'image_url','trailer_url', 'year_released', 'reviews']
 
 
-class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+class ReviewSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    
+
     class Meta:
         model = Review
         fields = ['id','owner', 'title', 'review_body', 'movie', 'created']
