@@ -3,6 +3,7 @@ from django.db import models
 class Movie(models.Model):
     title = models.CharField(max_length=100)
     image_url = models.URLField()
+    trailer_url = models.URLField(blank=True, default='')
     description = models.TextField()
     year_released = models.CharField(max_length=4)
 
