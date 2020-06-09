@@ -2,23 +2,20 @@ from rest_framework import serializers
 from .models import Movie, Review
 from django.contrib.auth.models import User
 
-class MovieSerializer(serializers.HyperlinkedModelSerializer):
-    reviews = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name='review-detail',
-        read_only=True
-    )
-    class Meta:
-        model = Movie
-        fields = ['id', 'title', 'description', 'image_url','trailer_url', 'year_released', 'reviews']
-
-
 class ReviewSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Review
         fields = ['id','owner', 'title', 'review_body', 'movie', 'created']
+
+
+class MovieSerializer(serializers.ModelSerializer):
+    # reviews = serializers.StringRelatedField(many=True)
+    reviews = ReviewSerializer(many=True, read_only=True)
+    class Meta:
+        model = Movie
+        fields = ['id', 'title', 'description', 'image_url','trailer_url', 'year_released', 'reviews']
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
