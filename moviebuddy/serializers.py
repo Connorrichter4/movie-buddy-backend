@@ -20,7 +20,7 @@ class MovieSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     reviews = serializers.HyperlinkedRelatedField(many=True, view_name='review-detail', read_only=True)
-    
+
     password = serializers.CharField(write_only=True)
     email = serializers.CharField(write_only=True)
 
@@ -33,7 +33,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
         return user
 
-        
+
     class Meta:
         model = User
         fields = ('id', 'username', 'reviews', 'email', 'password')
