@@ -5,7 +5,7 @@ class Movie(models.Model):
     image_url = models.URLField()
     trailer_url = models.URLField(blank=True, default='')
     description = models.TextField()
-    year_released = models.CharField(max_length=4)
+    year_released = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title
