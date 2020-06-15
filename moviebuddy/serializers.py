@@ -7,7 +7,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ['id','owner', 'title', 'review_body', 'movie', 'created']
+        fields = ['id','owner', 'title', 'review_body', 'movie', 'created', 'updated_at']
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -15,11 +15,11 @@ class MovieSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True)
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'description', 'image_url','trailer_url', 'year_released', 'reviews']
+        fields = ['id', 'title', 'description', 'image_url','trailer_url', 'year_released', 'reviews', 'created']
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    reviews = serializers.HyperlinkedRelatedField(many=True, view_name='review-detail', read_only=True)
+class UserSerializer(serializers.ModelSerializer):
+    reviews = ReviewSerializer(many=True, read_only=True)
 
     password = serializers.CharField(write_only=True)
     email = serializers.CharField(write_only=True)
